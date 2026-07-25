@@ -24,8 +24,9 @@ sudo pacman -S rar
 ```bash
 sudo zypper install rar
 ```
-```bash
+
 ## Binary (Universal Linux)
+```bash
 wget [https://www.rarlab.com/rar/rarlinux-x64.tar.gz](https://www.rarlab.com/rar/rarlinux-x64.tar.gz)
 tar -xvf rarlinux-x64.tar.gz
 cd rar
