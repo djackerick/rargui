@@ -65,7 +65,7 @@ sudo zypper install python3-tk
 ## Third: Give execution (+x) permissions
 This is valid for every distro
 ```bash
-chmod +x rarguy.py
+chmod +x rargui.py
 ```
 
 
