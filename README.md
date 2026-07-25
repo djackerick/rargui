@@ -1,3 +1,5 @@
+[Leer en Español](README.es.md)
+
 # First: This is only a GUI. You still need to download rar from the official sources.
 
 ## Ubuntu / Debian / Mint / Pop!_OS
