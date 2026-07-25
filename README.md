@@ -33,6 +33,7 @@ cd rar
 sudo make
 ```
 
+
 # Second: You probably need to install "python3-tk"
 
 ## Ubuntu / Debian / Mint / Pop!_OS
@@ -55,6 +56,17 @@ sudo pacman -S tk
 sudo zypper install python3-tk
 ```
 
-# Third: You can help me by just donating here:
 
-USD-T (Tron): TLDf5X6oMTrRRvt77qbieDDWthTfpwtPim
+# Third: Give execution (+x) permissions
+##This is valid for every distro
+```bash
+chmod +x rarguy.py
+```
+
+
+# Fourth: You can help me by just donating here:
+
+USD-T (Tron):
+```bash
+TLDf5X6oMTrRRvt77qbieDDWthTfpwtPim
+```
