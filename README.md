@@ -74,7 +74,7 @@ chmod +x rargui.py
 ## Fourth: Just double-click the rargui.py file
 
 
-## Fifth: You can help me by just donating here:
+## Fifth: You can help me to continue improving this GUI by just donating here:
 
 USD-T (Tron):
 ```bash
