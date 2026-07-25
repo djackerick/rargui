@@ -3,6 +3,8 @@
 # RarGUI
 A simple Python (Tkinter) GUI for compressing RAR files under Linux.
 
+<img width="599" height="469" alt="Image" src="https://github.com/user-attachments/assets/b09b0548-cae5-481a-bca9-53d026a2c18c" />
+
 ## First: This is only a GUI. You still need to download rar from the official sources.
 
 Ubuntu / Debian / Mint / Pop!_OS
