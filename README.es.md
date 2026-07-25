@@ -1,3 +1,5 @@
+[Read in English](README.md)
+
 # Primero: Esta es solo una INTERFAZ GRÁFICA. Es necesario que descargues e instales por tu cuenta la versión oficial de rar:
 
 ## Ubuntu / Debian / Mint / Pop!_OS
