@@ -3,6 +3,8 @@
 # RarGUI
 Una interfaz gráfica simple en Python (Tkinter) para comprimir archivos en RAR bajo Linux.
 
+<img width="600" height="470" alt="rarguies" src="https://github.com/user-attachments/assets/07bcb113-0f39-4d82-81e0-041c0bb762df" />
+
 ## Primero: Esta es solo una INTERFAZ GRÁFICA. Es necesario que descargues e instales por tu cuenta la versión oficial de rar:
 
 Ubuntu / Debian / Mint / Pop!_OS
