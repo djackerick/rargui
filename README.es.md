@@ -66,6 +66,7 @@ sudo zypper install python3-tk
 Este comando es válido para todas las distros
 ```bash
 chmod +x rargui.py
+chmod +x rargui_es.py
 ```
 
 
