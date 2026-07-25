@@ -70,9 +70,10 @@ Este comando es válido para todas las distros
 chmod +x rargui.py
 chmod +x rargui_es.py
 ```
+## Cuarto: Solo dale doble click al archivo que bajaste rargui.py o rargui_es.py:
+No necesitas bajar ambos.
 
-
-## Cuarto: Puedes ayudarme con solo donar unos verdes aquí:
+## Quinto: Puedes ayudarme con solo donar unos verdes aquí:
 
 USD-T (Tron):
 ```bash
