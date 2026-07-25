@@ -58,7 +58,7 @@ sudo zypper install python3-tk
 
 
 # Tercero: Otorga permisos de ejecución (+x):
-##This is valid for every distro
+##Este comando es válido para todas las distros
 ```bash
 chmod +x rarguy.py
 ```
