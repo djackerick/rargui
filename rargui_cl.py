@@ -4,17 +4,45 @@ from tkinter import filedialog, messagebox, ttk
 import subprocess
 from pathlib import Path
 import os
+import shutil
+import sys
+
+def get_distro():
+    """Detecta la distribución leyendo /etc/os-release"""
+    if not os.path.exists("/etc/os-release"):
+        return "unknown"
+    
+    info = {}
+    with open("/etc/os-release") as f:
+        for line in f:
+            if "=" in line:
+                k, v = line.strip().split("=", 1)
+                info[k] = v.strip('"')
+    
+    return info.get("ID", "unknown").lower()
+
+def check_command(cmd):
+    """Devuelve True si el comando existe en el PATH"""
+    return shutil.which(cmd) is not None
+
+def check_python_module(module):
+    """Intenta importar un módulo de Python"""
+    try:
+        __import__(module)
+        return True
+    except ImportError:
+        return False
 
 class RarCompressorApp:
     def __init__(self, root):
         self.root = root
         self.root.title("RARGUI")
-        self.root.geometry("600x390")
+        self.root.geometry("600x395")
         self.root.resizable(True, True)
 
         self.origen = tk.StringVar()
         self.destino_dir = tk.StringVar()
-        self.comando = tk.StringVar(value="(selecciona un origen primero)")
+        self.comando = tk.StringVar(value="(Elige un archivo o carpeta primero)")
         self.comando_visible = False
 
         self.crear_interfaz()
@@ -62,7 +90,7 @@ class RarCompressorApp:
         ttk.Button(frame_botones, text="Salir", command=self.root.destroy).pack(side="left", expand=True, fill="x", padx=(6, 0))
 
         # Versión abajo a la derecha
-        version_label = ttk.Label(self.root, text="v1.0.1 by D'JackeRick", foreground="gray")
+        version_label = ttk.Label(self.root, text="v1.0.2 by D'JackeRick", foreground="gray")
         version_label.pack(side="right", padx=12, pady=(0, 8))
 
     def elegir_archivo(self):
@@ -93,7 +121,7 @@ class RarCompressorApp:
         if ruta:
             self.destino_dir.set(ruta)
             self.actualizar_comando()
-
+            
     def toggle_comando(self):
         if self.comando_visible:
             self.frame_cmd.pack_forget()
@@ -103,12 +131,6 @@ class RarCompressorApp:
             self.frame_cmd.pack(fill="x", padx=12, pady=6)
             self.btn_toggle_cmd.config(text="⏫  Ok, ocúltalo, no entendí ni pico.")
             self.comando_visible = True
-
-    # Auto-ajustar el tamaño de la ventana
-            self.root.update_idletasks()
-            nueva_altura = self.root.winfo_reqheight()
-            ancho_actual = self.root.winfo_width()
-            self.root.geometry(f"{ancho_actual}x{nueva_altura}")
 
     def actualizar_comando(self):
         origen = self.origen.get()
@@ -151,7 +173,7 @@ class RarCompressorApp:
             if resultado.returncode == 0:
                 messagebox.showinfo("Ya acabé", "¿Un puchito ahora?")
             else:
-                messagebox.showerror("Error de RAR", 
+                messagebox.showerror("Error de RAR",
                     f"Código de salida: {resultado.returncode}\n\n{resultado.stderr or resultado.stdout}")
         except FileNotFoundError:
             messagebox.showerror("Aweonao", "Te dije que instalarai la wea de 'rar' primero.\nRevisa tu distro, capaz te toque meter esta wea en el terminal:\nsudo apt install rar -y")
@@ -159,6 +181,50 @@ class RarCompressorApp:
             messagebox.showerror("Error", str(e))
 
 if __name__ == "__main__":
+    # ========== CHEQUEO DE DEPENDENCIAS ==========
+    distro = get_distro()
+    missing = []
+
+    if not check_command("rar"):
+        missing.append("rar")
+
+    if not check_python_module("tkinter"):
+        missing.append("python3-tk")
+
+    if missing:
+        install_commands = {
+            "ubuntu": f"sudo apt update && sudo apt install -y {' '.join(missing)}",
+            "debian": f"sudo apt update && sudo apt install -y {' '.join(missing)}",
+            "linuxmint": f"sudo apt update && sudo apt install -y {' '.join(missing)}",
+            "pop": f"sudo apt update && sudo apt install -y {' '.join(missing)}",
+            "fedora": f"sudo dnf install -y {' '.join(missing)}",
+            "arch": f"sudo pacman -S --noconfirm {' '.join(missing)}",
+            "manjaro": f"sudo pacman -S --noconfirm {' '.join(missing)}",
+            "opensuse": f"sudo zypper install -y {' '.join(missing)}",
+        }
+
+        if distro in ("ubuntu", "kubuntu"):
+            cmd = install_commands["ubuntu"]
+        else:
+            cmd = install_commands.get(distro)
+
+        mensaje = "Oye, no puedo funcionar sin esta(s) weá(s):\n\n"
+        mensaje += "\n".join(f"• {m}" for m in missing)
+        mensaje += "\n\n"
+
+        if cmd:
+            mensaje += f"Puedes instalarlas con:\n\n{cmd}"
+        else:
+            mensaje += f"No sé qué wea es esto: '{distro}'.\nInstala lo que falta vos mismo."
+
+        # Mostramos el error con messagebox (funciona aunque no haya terminal)
+        root_temp = tk.Tk()
+        root_temp.withdraw()  # Oculta la ventana principal temporal
+        messagebox.showerror("Necesito esto:", mensaje)
+        root_temp.destroy()
+        sys.exit(1)
+
+    # ========== SI TODO ESTÁ BIEN, ABRE LA GUI ==========
     root = tk.Tk()
     style = ttk.Style()
     style.theme_use("clam")
